@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Model Aggregator — every free AI model on OpenRouter, in one place</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Free Model Aggregator <span class="free">— $0 edition</span></h1>
+    <p class="sub">Every chat model on OpenRouter that costs exactly $0 per token, gathered into one
+    searchable, comparable page. No sign-up, no key, no tracking: the catalog snapshot is bundled
+    with this page, so it renders instantly and fully offline. The aggregator server in this
+    repository routes live requests across ten providers' free tiers; this dashboard is its
+    human-facing catalog.</p>
+    <p class="meta" id="meta"></p>
+  </div>
+</header>
+
+<section class="controls">
+  <div class="wrap">
+    <div class="row">
+      <input type="search" id="search" placeholder="Search name, id or description…" aria-label="Search models">
+      <select id="vendor" aria-label="Provider"></select>
+      <select id="input-filter" aria-label="Inputs">
+        <option value="all">Any inputs</option>
+        <option value="vision">Vision (image input)</option>
+        <option value="text">Text only</option>
+      </select>
+      <select id="ctx-filter" aria-label="Minimum context">
+        <option value="0">Any context</option>
+        <option value="256000">≥ 256K context</option>
+        <option value="512000">≥ 512K context</option>
+        <option value="1000000">≥ 1M context</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="context">Sort: context, largest</option>
+        <option value="name">Sort: name A–Z</option>
+        <option value="newest">Sort: newest listed</option>
+      </select>
+    </div>
+    <div class="row">
+      <span class="label">Which free model for…</span>
+      <button type="button" class="chip" data-task="all" aria-pressed="true">Everything</button>
+      <button type="button" class="chip" data-task="chat" aria-pressed="false">💬 Chat</button>
+      <button type="button" class="chip" data-task="coding" aria-pressed="false">💻 Coding</button>
+      <button type="button" class="chip" data-task="longdocs" aria-pressed="false">📚 Long documents</button>
+      <button type="button" class="chip" data-task="vision" aria-pressed="false">👁 Vision</button>
+      <button type="button" class="chip" data-task="indonesian" aria-pressed="false">🇮🇩 Indonesian</button>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<div class="comparebar" id="comparebar"></div>
+
+<footer>
+  <div class="wrap">
+    <p>Data: OpenRouter's public model catalog (<span id="foot-src">openrouter.ai/api/v1/models</span>),
+    filtered to models whose prompt and completion prices are both exactly "0". Free tiers are
+    rate-limited by the provider — on OpenRouter, an account that has purchased at least 10 credits
+    gets 1,000 free requests a day rather than 50. Prices and availability change; the snapshot
+    stamp above says when this copy was taken. Shortlists under “Which free model for…” are simple
+    heuristics over context size, image input and model naming — a starting point, not a benchmark.</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
